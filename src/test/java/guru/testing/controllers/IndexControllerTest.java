@@ -2,12 +2,15 @@ package guru.testing.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("controllers")
 class IndexControllerTest {
 
     IndexController controller;
@@ -25,6 +28,8 @@ class IndexControllerTest {
                 " Lambda expression" +
                 " to implement Supplier<String>" +
                 " Functional Interface");
+
+        assertThat(controller.index()).isEqualTo("index");
     }
 
     @DisplayName("Oups")

@@ -1,11 +1,19 @@
 package guru.testing.model;
 
+import guru.testing.CustomArgsProvider;
+import guru.testing.ModelTests;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OwnerTest {
+class OwnerTest implements ModelTests {
 
 
     @Test
@@ -25,4 +33,35 @@ class OwnerTest {
         );
     }
 
+    //ENUM tests
+    @DisplayName("ENUM Source Test ")
+    @ParameterizedTest(name = "{displayName} | [{index}] {arguments}")
+    @EnumSource(OwnerType.class)
+    void parameterizedEnumTest(OwnerType val){
+        System.out.println(val);
+    }
+
+
+    @DisplayName("Method Providor Test ")
+    @ParameterizedTest(name = "{displayName} | [{index}] {arguments}")
+    @MethodSource("getArgs")
+    void fromMethodTest(String val, int a, int b){
+        System.out.println(val + " = " + a + " : " + b);
+    }
+
+    static Stream<Arguments> getArgs(){
+        return Stream.of(
+                Arguments.of("Nabil", 1, 2),
+                Arguments.of("Nabilo", 9, 4),
+                Arguments.of("Nabilovsky", 7, 10)
+        );
+    }
+
+
+    @DisplayName("Custom Args Providor Test ")
+    @ParameterizedTest(name = "{displayName} | [{index}] {arguments}")
+    @ArgumentsSource(CustomArgsProvider.class)
+    void fromCustomArgsProviderTest(String val, int a, int b){
+        System.out.println(val + " = " + a + " : " + b);
+    }
 }
