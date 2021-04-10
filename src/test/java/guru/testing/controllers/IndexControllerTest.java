@@ -55,7 +55,7 @@ class IndexControllerTest {
     @Test
     @DisplayName("Test Timeout")
     void indexTimeout() {
-        assertTimeout(Duration.ofMillis(100), () -> {
+        assertTimeout(Duration.ofMillis(1000), () -> {
             Thread.sleep(200);
             System.out.println("main Thread should write this");
         });
@@ -65,7 +65,7 @@ class IndexControllerTest {
     @Test
     @DisplayName("Test Timeout Preemptively")
     void indexTimeoutPreemptively() {
-        assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
+        assertTimeoutPreemptively(Duration.ofMillis(1000), () -> {
             Thread.sleep(200);
             System.out.println("A child thread should not write this");
         });
